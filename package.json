@@ -1,0 +1,20 @@
+{
+  "name": "constructor-js",
+  "version": "1.0.0",
+  "description": "Constructor in js ",
+  "main": "index.js",
+  "scripts": {
+    "app-test": "parcel ./src/index.html -p 8000 --open",
+    "build": "parcel build ./src/index.html"
+  },
+  "keywords": [
+    "js",
+    "javascript",
+    "constructor"
+  ],
+  "author": "Nazirov Ilhomjon <naziroffjr@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
+}
