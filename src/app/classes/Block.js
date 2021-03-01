@@ -15,11 +15,52 @@ export class ImageBlock extends Block{
         super(value,options);
     }
     HtmlCode() {
-        const {ImageStyle:s,alt,styles} = this.options
+        const {ImageStyle:s,more:alt,styles} = this.options
         return row(`<img src="${this.value}" style="${cssConvert(s)}" alt="${alt}">`,cssConvert(styles))
     }
 
 }
+
+export class VideoBlock extends Block{
+    constructor(value,options) {
+        super(value,options);
+    }
+    HtmlCode() {
+        const {ImageStyle:s,more:format,styles} = this.options
+        const value = this.value.includes('youtu.be') ? this.value.replace('youtu.be','www.youtube.com/embed') : this.value
+        return row(`<iframe style=${styles} width="480px" height="500px" src=${value} frameborder="0"  allowfullscreen></iframe>
+
+
+`,cssConvert(styles))
+    }
+
+
+
+}
+
+export class HyperLinkBlock extends Block{
+    constructor(value,options) {
+        super(value,options);
+    }
+    HtmlCode() {
+        const {more:link,styles} = this.options
+        return `<a style=${styles} href=${link}>${this.value}</a>`
+    }
+
+}
+
+export class ButtonBlock extends Block{
+    constructor(value,options) {
+        super(value,options);
+    }
+    HtmlCode() {
+        const {more:action,styles} = this.options
+        debugger
+        return row(`<button style=${styles} onclick=(${action}})>${this.value}</button>`)
+    }
+
+}
+
 export class ColumnBlock extends Block{
     constructor(value,options) {
         super(value,options);
@@ -35,7 +76,8 @@ export class TextBlock extends Block{
         super(value,options);
     }
     HtmlCode() {
-        return row(column(`<p>${this.value}</p>`),cssConvert(this.options.styles))
+        const {more:tag = 'p',styles} = this.options
+        return row(column(`<${tag}>${this.value}</${tag}>`),cssConvert(styles))
     }
 
 }
@@ -44,7 +86,8 @@ export class TitleBlock extends Block{
         super(value,options);
     }
     HtmlCode() {
-        const {tag = 'h1',styles} = this.options
+        const {more:tag = 'h1',styles} = this.options
+        debugger
         return row(column(`<${tag}>${this.value}</${tag}>`),cssConvert(styles))
     }
 

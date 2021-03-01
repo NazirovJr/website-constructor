@@ -1,5 +1,5 @@
-import {block} from "../utilities";
-import {TextBlock, TitleBlock} from "./Block";
+import {block, column} from "../utilities";
+import {ButtonBlock, ColumnBlock, HyperLinkBlock, ImageBlock, TextBlock, TitleBlock, VideoBlock} from "./Block";
 
 export class siteBarConst {
     constructor(selector,updateHtml) {
@@ -16,7 +16,11 @@ export class siteBarConst {
     get app_template() {
         return [
             block('text'),
-            block('title')
+            block('title'),
+            block('image'),
+            block('video'),
+            block('hyper-link'),
+            block('button')
         ].join('')
     }
 
@@ -25,12 +29,32 @@ export class siteBarConst {
         const type = event.target.name
         const value = event.target.value.value
         const styles = event.target.styles.value
-        const newBlock = type === 'text' ?  new TextBlock(value, {styles})
-            : new TitleBlock(value,{styles})
+        const more = event.target.more.value
+        let newBlock = ''
+        switch (type) {
+            case 'text':
+                newBlock = new TextBlock(value, {more,styles})
+                break
+            case 'title':
+                newBlock = new TitleBlock(value,{more,styles})
+                break
+            case 'video':
+                newBlock = new VideoBlock(value,{more,styles})
+                break
+            case 'hyper-link':
+                newBlock = new HyperLinkBlock(value,{more,styles})
+                break
+            case 'button':
+                newBlock = new ButtonBlock(value,{more,styles})
+                break
+            default:
+                newBlock = new ImageBlock(value,{more,styles})
+                break
+        }
         this.update(newBlock)
         event.target.value.value = ''
         event.target.styles.value = ''
-
+        event.target.more.value = ''
     }
 }
 
