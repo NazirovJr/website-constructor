@@ -55,8 +55,7 @@ export class ButtonBlock extends Block{
     }
     HtmlCode() {
         const {more:action,styles} = this.options
-        debugger
-        return row(`<button style=${styles} onclick=(${action}})>${this.value}</button>`)
+        return row(`<button style=${styles} onclick=(eval(${action}))>${this.value}</button>`)
     }
 
 }
